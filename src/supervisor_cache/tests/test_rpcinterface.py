@@ -9,8 +9,6 @@ from supervisor.supervisord import SupervisorStates
 import supervisor_cache
 
 from supervisor.tests.base import DummySupervisor
-from supervisor.tests.base import DummyPConfig, DummyProcess
-from supervisor.tests.base import DummyPGroupConfig, DummyProcessGroup
 
 class TestRPCInterface(unittest.TestCase):
 
