@@ -21,7 +21,7 @@ here = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 DESC = """\
 supervisor_cache is an RPC extension for the supervisor2 package that
 provides the ability to cache limited amounts of data in the
-supervisor instance by key/value pairs."""
+supervisor instance as key/value pairs."""
 
 CLASSIFIERS = [
     'Development Status :: 5 - Production/Stable',
