@@ -5,9 +5,8 @@ from supervisor.xmlrpc import RPCError
 API_VERSION = '1.0'
 
 class CacheNamespaceRPCInterface:
-    """ A supervisor rpc interface that provides the ability 
-    to cache limited amounts of data in the supervisor instance 
-    in key/value pairs.    
+    """ A Supervisor RPC interface that provides the ability 
+    to cache abritrary data in the Supervisor instance as key/value pairs.
     """
 
     def __init__(self, supervisord):
