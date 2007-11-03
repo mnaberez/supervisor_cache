@@ -1,4 +1,4 @@
-supervisor_twiddler:
+supervisor_cache:
   This package is an RPC extension for the supervisor2 package that
   provides the ability to cache limited amounts of data in the
   supervisor instance as key/value pairs.
