@@ -46,7 +46,7 @@ Usage
   ['foo']
 
   The key must be a string and cannot be zero-length.  The value must also be a
-  string but is permitted to be zend-length.  Please consult the inline source 
+  string but is permitted to be zero-length.  Please consult the inline source 
   documentation for the specifics of each command available.
 
 Warning
