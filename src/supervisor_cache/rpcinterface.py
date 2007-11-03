@@ -1,5 +1,3 @@
-import xmlrpclib
-
 from supervisor.supervisord import SupervisorStates
 from supervisor.xmlrpc import Faults as SupervisorFaults
 from supervisor.xmlrpc import RPCError
@@ -42,49 +40,38 @@ class CacheNamespaceRPCInterface:
         @return  array   An array of strings representing cache keys
         """
         self._update('getKeys')
-        
         return self.cache.keys()
 
     def store(self, key, data):
-        """ Store a cache value in 'key'
+        """ Store a string value in the cache, referenced by 'key'
 
         @param  string key   A string to use as a cache key
-        @param  string data  A string for cache value (may also be Binary)
+        @param  string data  A string for cache value
         @return boolean      Always true unless error
         """
         self._update('store')
-        
-        if isinstance(data, xmlrpclib.Binary):
-            data = data.data
+        self._validateKey(key)
 
-        try:
-            key = str(key)
-            if key == '':
-                raise RPCError(SupervisorFaults.BAD_NAME)
-            self.cache[key] = data
-        except RPCError:
-            raise
-        except:
-            raise RPCError(SupervisorFaults.FAILED)
+        if not isinstance(data, str):
+            why = 'Cache data must be a string'
+            raise RPCError(SupervisorFaults.INCORRECT_PARAMETERS, why)
 
+        self.cache[key] = data
         return True
 
     def fetch(self, key):
         """ Retrieve data from cache stored under 'key'
 
         @param  string key  The cache key
-        @return binary      An xmlrpc Binary value
+        @return string      Cache data stored at key
         """
         self._update('fetch')
+        self._validateKey(key)
 
-        key = str(key)
         data = self.cache.get(key)
         if data is None:
             raise RPCError(SupervisorFaults.BAD_NAME)
-        try:
-            return xmlrpclib.Binary(data)
-        except:
-            raise RPCError(SupervisorFaults.FAILED)
+        return data
 
     def delete(self, key):
         """ Delete data stored in cache under 'key'
@@ -93,6 +80,7 @@ class CacheNamespaceRPCInterface:
         @return boolean      Always true unless error.
         """
         self._update('delete')
+        self._validateKey(key)
 
         if self.cache.has_key(key):
             del self.cache[key]
@@ -104,9 +92,14 @@ class CacheNamespaceRPCInterface:
         @return boolean  Always true unless error.
         """
         self._update('clear')
-
         self.cache.clear()
         return True
+
+    def _validateKey(self, key):
+        """ validate 'key' is suitable for a cache key name """
+        if not isinstance(key, str) or (key == ''):
+            why = 'Cache key must be a non-empty string'
+            raise RPCError(SupervisorFaults.BAD_NAME, why)
 
 def make_cache_rpcinterface(supervisord, **config):
     return CacheNamespaceRPCInterface(supervisord)

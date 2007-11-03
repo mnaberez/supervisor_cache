@@ -1,6 +1,5 @@
 import sys
 import unittest
-import xmlrpclib
 
 import supervisor
 from supervisor.xmlrpc import Faults as SupervisorFaults
@@ -54,12 +53,28 @@ class TestRPCInterface(unittest.TestCase):
 
     # API Method cache.store()
     
-    def test_store_raises_bad_name_when_key_is_invalid(self):
+    def test_store_raises_bad_name_when_key_is_not_a_string(self):
+        supervisord = DummySupervisor()
+        interface = self.makeOne(supervisord)
+
+        not_a_string = 42
+        self.assertRPCError(SupervisorFaults.BAD_NAME,
+                    interface.store, not_a_string, 'data')
+
+    def test_store_raises_bad_name_when_key_is_an_empty_string(self):
         supervisord = DummySupervisor()
         interface = self.makeOne(supervisord)
 
         self.assertRPCError(SupervisorFaults.BAD_NAME,
                     interface.store, '', 'data')
+    
+    def test_store_raises_incorrect_parameters_when_data_is_not_string(self):
+        supervisord = DummySupervisor()
+        interface = self.makeOne(supervisord)
+
+        not_a_string = 42
+        self.assertRPCError(SupervisorFaults.INCORRECT_PARAMETERS,
+                    interface.store, 'key', not_a_string)
     
     def test_store(self):
         supervisord = DummySupervisor()
@@ -68,14 +83,6 @@ class TestRPCInterface(unittest.TestCase):
         interface.store('the-key', 'its-value')
         self.assertEqual(interface.cache['the-key'], 'its-value')
         self.assertEqual(interface.update_text, 'store')
-    
-    def test_store_handles_binary_values(self):
-        supervisord = DummySupervisor()
-        interface = self.makeOne(supervisord)
-
-        interface.store('the-key', xmlrpclib.Binary('its-binary-value'))
-        self.assert_(not isinstance(interface.cache['the-key'], xmlrpclib.Binary))
-        self.assertEqual(interface.cache['the-key'], 'its-binary-value')
     
     # API Method cache.getKeys()
     
@@ -96,6 +103,21 @@ class TestRPCInterface(unittest.TestCase):
         self.assertEqual(interface.update_text, 'getKeys')
     
     # API Method cache.fetch()
+
+    def test_fetch_raises_bad_name_when_key_is_not_a_string(self):
+        supervisord = DummySupervisor()
+        interface = self.makeOne(supervisord)
+
+        not_a_string = 42
+        self.assertRPCError(SupervisorFaults.BAD_NAME,
+                    interface.fetch, not_a_string)
+
+    def test_fetch_raises_bad_name_when_key_is_an_empty_string(self):
+        supervisord = DummySupervisor()
+        interface = self.makeOne(supervisord)
+
+        self.assertRPCError(SupervisorFaults.BAD_NAME,
+                    interface.fetch, '')
     
     def test_fetch_raises_bad_name_when_key_does_not_exist(self):
         supervisord = DummySupervisor()
@@ -114,6 +136,21 @@ class TestRPCInterface(unittest.TestCase):
         self.assertEqual(interface.update_text, 'fetch')
 
     # API Method cache.delete()
+
+    def test_delete_raises_bad_name_when_key_is_not_a_string(self):
+        supervisord = DummySupervisor()
+        interface = self.makeOne(supervisord)
+
+        not_a_string = 42
+        self.assertRPCError(SupervisorFaults.BAD_NAME,
+                    interface.delete, not_a_string)
+
+    def test_delete_raises_bad_name_when_key_is_an_empty_string(self):
+        supervisord = DummySupervisor()
+        interface = self.makeOne(supervisord)
+
+        self.assertRPCError(SupervisorFaults.BAD_NAME,
+                    interface.delete, '')
     
     def test_delete_fails_silently_when_key_does_not_exist(self):
         supervisord = DummySupervisor()
@@ -128,6 +165,7 @@ class TestRPCInterface(unittest.TestCase):
         interface.cache = {'delete-me': 'foo', 'keep-me': 'bar'}
 
         self.assertTrue(interface.delete('delete-me'))
+        self.assertNone(interface.cache.get('delete-me'))
         self.assertEqual({'keep-me': 'bar'}, interface.cache)
     
     # API Method cache.clear()
@@ -158,7 +196,7 @@ class TestRPCInterface(unittest.TestCase):
         except supervisor.xmlrpc.RPCError, inst:
             self.assertEqual(inst.code, code)
         else:
-            fail('RPCError was never raised')
+            self.fail('RPCError was never raised')
 
     def assertTrue(self, obj):
         self.assert_(obj is True)
