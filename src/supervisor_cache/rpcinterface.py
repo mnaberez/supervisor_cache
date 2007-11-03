@@ -11,7 +11,10 @@ from supervisor.http import NOT_DONE_YET
 API_VERSION = '1.0'
 
 class CacheNamespaceRPCInterface:
-    """ A supervisor rpc interface for caching """
+    """ A supervisor rpc interface that provides the ability 
+    to cache limited amounts of data in the supervisor instance 
+    in key/value pairs.    
+    """
 
     def __init__(self, supervisord):
         self.supervisord = supervisord
@@ -32,7 +35,7 @@ class CacheNamespaceRPCInterface:
     def getAPIVersion(self):
         """ Return the version of the RPC API used by supervisor_cache
 
-        @return int version version id
+        @return string  version
         """
         self._update('getAPIVersion')
         return API_VERSION
@@ -40,7 +43,7 @@ class CacheNamespaceRPCInterface:
     def getKeys(self):
         """ Return keys for all data stored in the cache
 
-        @return array result An array of strings representing cache keys
+        @return  array   An array of strings representing cache keys
         """
         self._update('getKeys')
         
@@ -49,9 +52,9 @@ class CacheNamespaceRPCInterface:
     def store(self, key, data):
         """ Store a cache value in 'key'
 
-        @param string key    A string to use as a cache key
-        @param string data   A string for cache value (may also be Binary)
-        @return boolean result  Always true unless error
+        @param  string key   A string to use as a cache key
+        @param  string data  A string for cache value (may also be Binary)
+        @return boolean      Always true unless error
         """
         self._update('store')
         
@@ -73,8 +76,8 @@ class CacheNamespaceRPCInterface:
     def fetch(self, key):
         """ Retrieve data from cache stored under 'key'
 
-        @param string key  The cache key
-        @return binary value  An xmlrpc Binary value
+        @param  string key  The cache key
+        @return binary      An xmlrpc Binary value
         """
         
         self._update('fetch')
@@ -91,8 +94,8 @@ class CacheNamespaceRPCInterface:
     def delete(self, key):
         """ Delete data stored in cache under 'key'
 
-        @param string key  The key to delete from the cache
-        @return boolean result  Always true unless error.
+        @param  string  key  The key to delete from the cache
+        @return boolean      Always true unless error.
         """
         self._update('delete')
 
@@ -103,7 +106,7 @@ class CacheNamespaceRPCInterface:
     def clear(self):
         """ Clear the cache
 
-        @return boolean result  Always true unless error.
+        @return boolean  Always true unless error.
         """
         self._update('clear')
 
