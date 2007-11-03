@@ -1,12 +1,8 @@
-import os
 import xmlrpclib
 
-from supervisor.options import UnhosedConfigParser
-from supervisor.options import ProcessGroupConfig
 from supervisor.supervisord import SupervisorStates
 from supervisor.xmlrpc import Faults as SupervisorFaults
 from supervisor.xmlrpc import RPCError
-from supervisor.http import NOT_DONE_YET
 
 API_VERSION = '1.0'
 
@@ -79,7 +75,6 @@ class CacheNamespaceRPCInterface:
         @param  string key  The cache key
         @return binary      An xmlrpc Binary value
         """
-        
         self._update('fetch')
 
         key = str(key)
