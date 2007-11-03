@@ -28,7 +28,7 @@ class TestRPCInterface(unittest.TestCase):
         interface = rpcinterface.make_cache_rpcinterface(supervisord)
         
         self.assertType(rpcinterface.CacheNamespaceRPCInterface, interface)
-        self.assertEquals(supervisord, interface.supervisord)
+        self.assertEqual(supervisord, interface.supervisord)
 
     # Updater
     
