@@ -26,11 +26,11 @@ Installation
   [rpcinterface:cache]
   supervisor.rpcinterface_factory = supervisor_cache.rpcinterface:make_cache_rpcinterface  
 
-Usage
-
   After modifying the supervisord.conf file, your supervisor instance must be
   restarted for the cache interface to be loaded.  
   
+Usage
+
   The cache functions allow key/value pairs to be stored and fetched.  This
   Python interpreter session demonstrates the usage:
 
