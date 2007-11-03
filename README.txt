@@ -10,7 +10,7 @@ History
 Overview
 
   Supervisor provides the "identification" configuration parameter that can be 
-  returned by a Supervisor instance using supervisor.getIndentification().  
+  returned by a Supervisor instance using supervisor.getIdentification().  
   This value cannot be modified at runtime.  
   
   Occasionally, it is useful to be able to store similar kinds of marker
