@@ -150,13 +150,6 @@ class TestRPCInterface(unittest.TestCase):
     def makeOne(self, *arg, **kw):
         return self.getTargetClass()(*arg, **kw)
 
-    def attrDictWithoutUnders(self, obj):
-        """ Returns the __dict__ for an object with __unders__ removed """
-        attrs = {}
-        for k, v in obj.__dict__.items():
-            if not k.startswith('__'): attrs[k] = v
-        return attrs
-
     # Helper Assertion Methods
 
     def assertRPCError(self, code, callable, *args, **kw):
