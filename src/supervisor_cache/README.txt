@@ -32,7 +32,7 @@ Usage
   restarted for the cache interface to be loaded.  
   
   The cache functions allow key/value pairs to be stored and fetched.  This
-  Python interpreter session demostrates the usage:
+  Python interpreter session demonstrates the usage:
 
   >>> import xmlrpclib      
   >>> s = xmlrpclib.Server('http://localhost:9001')
