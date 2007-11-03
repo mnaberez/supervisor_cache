@@ -1,5 +1,5 @@
 from supervisor.supervisord import SupervisorStates
-from supervisor.xmlrpc import Faults as SupervisorFaults
+from supervisor.xmlrpc import Faults
 from supervisor.xmlrpc import RPCError
 
 API_VERSION = '1.0'
@@ -20,7 +20,7 @@ class CacheNamespaceRPCInterface:
         state = self.supervisord.get_state()
 
         if state == SupervisorStates.SHUTDOWN:
-            raise RPCError(SupervisorFaults.SHUTDOWN_STATE)
+            raise RPCError(Faults.SHUTDOWN_STATE)
 
         # XXX fatal state
         
@@ -54,7 +54,7 @@ class CacheNamespaceRPCInterface:
 
         if not isinstance(data, str):
             why = 'Cache data must be a string'
-            raise RPCError(SupervisorFaults.INCORRECT_PARAMETERS, why)
+            raise RPCError(Faults.INCORRECT_PARAMETERS, why)
 
         self.cache[key] = data
         return True
@@ -70,7 +70,7 @@ class CacheNamespaceRPCInterface:
 
         data = self.cache.get(key)
         if data is None:
-            raise RPCError(SupervisorFaults.BAD_NAME)
+            raise RPCError(Faults.BAD_NAME)
         return data
 
     def delete(self, key):
@@ -99,7 +99,7 @@ class CacheNamespaceRPCInterface:
         """ validate 'key' is suitable for a cache key name """
         if not isinstance(key, str) or (key == ''):
             why = 'Cache key must be a non-empty string'
-            raise RPCError(SupervisorFaults.BAD_NAME, why)
+            raise RPCError(Faults.BAD_NAME, why)
 
 def make_cache_rpcinterface(supervisord, **config):
     return CacheNamespaceRPCInterface(supervisord)

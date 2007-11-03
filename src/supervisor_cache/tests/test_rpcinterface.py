@@ -2,7 +2,7 @@ import sys
 import unittest
 
 import supervisor
-from supervisor.xmlrpc import Faults as SupervisorFaults
+from supervisor.xmlrpc import Faults
 from supervisor.supervisord import SupervisorStates
 
 import supervisor_cache
@@ -36,7 +36,7 @@ class TestRPCInterface(unittest.TestCase):
         supervisord = DummySupervisor(state = SupervisorStates.SHUTDOWN)
         interface = self.makeOne(supervisord)
         
-        self.assertRPCError(SupervisorFaults.SHUTDOWN_STATE, 
+        self.assertRPCError(Faults.SHUTDOWN_STATE, 
                             interface.getAPIVersion)
     
     # API Method cache.getAPIVersion()
@@ -58,14 +58,14 @@ class TestRPCInterface(unittest.TestCase):
         interface = self.makeOne(supervisord)
 
         not_a_string = 42
-        self.assertRPCError(SupervisorFaults.BAD_NAME,
+        self.assertRPCError(Faults.BAD_NAME,
                     interface.store, not_a_string, 'data')
 
     def test_store_raises_bad_name_when_key_is_an_empty_string(self):
         supervisord = DummySupervisor()
         interface = self.makeOne(supervisord)
 
-        self.assertRPCError(SupervisorFaults.BAD_NAME,
+        self.assertRPCError(Faults.BAD_NAME,
                     interface.store, '', 'data')
     
     def test_store_raises_incorrect_parameters_when_data_is_not_string(self):
@@ -73,7 +73,7 @@ class TestRPCInterface(unittest.TestCase):
         interface = self.makeOne(supervisord)
 
         not_a_string = 42
-        self.assertRPCError(SupervisorFaults.INCORRECT_PARAMETERS,
+        self.assertRPCError(Faults.INCORRECT_PARAMETERS,
                     interface.store, 'key', not_a_string)
     
     def test_store(self):
@@ -109,14 +109,14 @@ class TestRPCInterface(unittest.TestCase):
         interface = self.makeOne(supervisord)
 
         not_a_string = 42
-        self.assertRPCError(SupervisorFaults.BAD_NAME,
+        self.assertRPCError(Faults.BAD_NAME,
                     interface.fetch, not_a_string)
 
     def test_fetch_raises_bad_name_when_key_is_an_empty_string(self):
         supervisord = DummySupervisor()
         interface = self.makeOne(supervisord)
 
-        self.assertRPCError(SupervisorFaults.BAD_NAME,
+        self.assertRPCError(Faults.BAD_NAME,
                     interface.fetch, '')
     
     def test_fetch_raises_bad_name_when_key_does_not_exist(self):
@@ -124,7 +124,7 @@ class TestRPCInterface(unittest.TestCase):
         interface = self.makeOne(supervisord)
         interface.cache = {}
                 
-        self.assertRPCError(SupervisorFaults.BAD_NAME, 
+        self.assertRPCError(Faults.BAD_NAME, 
                             interface.fetch, 'nonexistant-key')
     
     def test_fetch(self):
@@ -142,14 +142,14 @@ class TestRPCInterface(unittest.TestCase):
         interface = self.makeOne(supervisord)
 
         not_a_string = 42
-        self.assertRPCError(SupervisorFaults.BAD_NAME,
+        self.assertRPCError(Faults.BAD_NAME,
                     interface.delete, not_a_string)
 
     def test_delete_raises_bad_name_when_key_is_an_empty_string(self):
         supervisord = DummySupervisor()
         interface = self.makeOne(supervisord)
 
-        self.assertRPCError(SupervisorFaults.BAD_NAME,
+        self.assertRPCError(Faults.BAD_NAME,
                     interface.delete, '')
     
     def test_delete_fails_silently_when_key_does_not_exist(self):
