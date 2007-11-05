@@ -4,8 +4,8 @@ supervisor_cache:
   Supervisor instance as key/value pairs.
       
 History
- 
-  Not yet released.
+
+  11/5/2007: First release. 
 
 Overview
 
