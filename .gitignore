@@ -1,0 +1,9 @@
+.DS_Store
+*~
+*.pyc
+*.pyo
+*.swp
+build/
+dist/
+src/supervisor_cache.egg-info/
+
