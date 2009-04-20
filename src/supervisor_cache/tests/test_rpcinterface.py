@@ -83,6 +83,15 @@ class TestRPCInterface(unittest.TestCase):
         interface.store('the-key', 'its-value')
         self.assertEqual(interface.cache['the-key'], 'its-value')
         self.assertEqual(interface.update_text, 'store')
+
+    # API Method cache.getCount()
+    
+    def test_getCount(self):
+        supervisord = DummySupervisor()
+        interface = self.makeOne(supervisord)
+        interface.cache = dict(foo='bar', baz='qux')
+        self.assertEqual(2, interface.getCount())
+        self.assertEqual(interface.update_text, 'getCount')
     
     # API Method cache.getKeys()
     

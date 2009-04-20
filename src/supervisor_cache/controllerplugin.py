@@ -24,10 +24,10 @@ class CacheControllerPlugin(ControllerPluginBase):
         self.cache.store(key, value)        
 
     def do_cache_delete(self, args):
-        value = self.cache.delete(args)
+        self.cache.delete(args)
 
     def do_cache_clear(self, args):
-        value = self.cache.clear()
+        self.cache.clear()
 
     def _pprint(self, what):
         pprinted = pprint.pformat(what)

@@ -2,7 +2,7 @@ from supervisor.supervisord import SupervisorStates
 from supervisor.xmlrpc import Faults
 from supervisor.xmlrpc import RPCError
 
-API_VERSION = '0.1'
+API_VERSION = '0.2'
 
 class CacheNamespaceRPCInterface:
     """ A Supervisor RPC interface that provides the ability 
@@ -40,6 +40,14 @@ class CacheNamespaceRPCInterface:
         """
         self._update('getKeys')
         return self.cache.keys()
+
+    def getCount(self):
+        """ Return a count of all items in the cache
+
+        @return  integer   Count of items 
+        """
+        self._update('getCount')
+        return len(self.cache)
 
     def store(self, key, data):
         """ Store a string value in the cache, referenced by 'key'
