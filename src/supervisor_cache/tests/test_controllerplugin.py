@@ -32,6 +32,14 @@ class TestControllerPlugin(unittest.TestCase):
         plugin.do_cache_clear('')
         self.assertEqual({}, cache_interface.cache)
 
+    def test_help_cache_clear(self):
+        controller = DummyController()
+        plugin = self.makeOne(controller)
+
+        plugin.help_cache_clear()
+        out = controller.sio.getvalue()
+        self.assert_(out.startswith('cache_clear'))
+
     # cache_fetch
     
     def test_do_cache_fetch(self):
@@ -44,7 +52,15 @@ class TestControllerPlugin(unittest.TestCase):
         
         output = controller.sio.getvalue()
         self.assertEqual("'bar'", output)
-    
+
+    def test_help_cache_fetch(self):
+        controller = DummyController()
+        plugin = self.makeOne(controller)
+
+        plugin.help_cache_fetch()
+        out = controller.sio.getvalue()
+        self.assert_(out.startswith('cache_fetch <key>'))
+   
     # cache_store
     
     def test_do_cache_store(self):
@@ -55,6 +71,14 @@ class TestControllerPlugin(unittest.TestCase):
         cache_interface.cache = {}
         plugin.do_cache_store('foo bar')
         self.assertEqual('bar', cache_interface.cache['foo'])
+
+    def test_help_cache_store(self):
+        controller = DummyController()
+        plugin = self.makeOne(controller)
+
+        plugin.help_cache_store()
+        out = controller.sio.getvalue()
+        self.assert_(out.startswith('cache_store <key> <value>'))           
 
     # cache_delete
     
@@ -69,6 +93,14 @@ class TestControllerPlugin(unittest.TestCase):
         self.assertEqual(None, cache_interface.cache.get('foo', None))  
         self.assertEqual('qux', cache_interface.cache['baz'])  
 
+    def test_help_cache_delete(self):
+        controller = DummyController()
+        plugin = self.makeOne(controller)
+
+        plugin.help_cache_delete()
+        out = controller.sio.getvalue()
+        self.assert_(out.startswith('cache_delete <key>'))           
+
     # cache_keys
     
     def test_do_cache_keys(self):
@@ -82,7 +114,14 @@ class TestControllerPlugin(unittest.TestCase):
         output = controller.sio.getvalue()
         self.assert_('foo' in output)
         self.assert_('baz' in output)
-        
+
+    def test_help_cache_keys(self):
+        controller = DummyController()
+        plugin = self.makeOne(controller)
+
+        plugin.help_cache_keys()
+        out = controller.sio.getvalue()
+        self.assert_(out.startswith('cache_keys'))           
 
     # Test Helpers
 
