@@ -14,6 +14,14 @@ class CacheControllerPlugin(ControllerPluginBase):
         self.ctl.output("cache_keys\t"
                         "List the keys of all items in the cache.")
 
+    def do_cache_count(self, args):
+        count = self.cache.getCount()
+        self.ctl.output(count)
+
+    def help_cache_count(self):
+        self.ctl.output("cache_count\t"
+                        "Get a count of all items in the cache.")
+
     def do_cache_fetch(self, args):
         value = self.cache.fetch(args)
         self._pprint(value)

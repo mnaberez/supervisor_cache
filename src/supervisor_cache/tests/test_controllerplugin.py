@@ -123,6 +123,27 @@ class TestControllerPlugin(unittest.TestCase):
         out = controller.sio.getvalue()
         self.assert_(out.startswith('cache_keys'))           
 
+    # cache_count
+    
+    def test_do_cache_count(self):
+        controller = DummyController()
+        plugin = self.makeOne(controller)
+
+        cache_interface = plugin.cache
+        cache_interface.cache = dict(foo='bar', baz='qux')
+        plugin.do_cache_count('')
+        
+        output = controller.sio.getvalue()
+        self.assertEqual('2', output)
+   
+    def test_help_cache_count(self):
+        controller = DummyController()
+        plugin = self.makeOne(controller)
+
+        plugin.help_cache_count()
+        out = controller.sio.getvalue()
+        self.assert_(out.startswith('cache_count'))           
+
     # Test Helpers
 
     def makeOne(self, *arg, **kw):
