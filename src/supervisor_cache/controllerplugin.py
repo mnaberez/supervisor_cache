@@ -16,7 +16,7 @@ class CacheControllerPlugin(ControllerPluginBase):
 
     def do_cache_count(self, args):
         count = self.cache.getCount()
-        self.ctl.output(count)
+        self.ctl.output(str(count))
 
     def help_cache_count(self):
         self.ctl.output("cache_count\t"

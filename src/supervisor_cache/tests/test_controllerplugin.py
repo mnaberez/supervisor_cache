@@ -159,6 +159,7 @@ class DummyController:
         self.sio = StringIO.StringIO()
     
     def output(self, out):
+        assert(isinstance(out, str))
         self.sio.write(out)
             
     def get_server_proxy(self, namespace=None):
