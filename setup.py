@@ -1,5 +1,3 @@
-__revision__ = '$Id: setup.py,v 1.3 2007/10/04 18:17:31 chrism Exp $'
-
 from ez_setup import use_setuptools
 use_setuptools()
 
@@ -11,15 +9,15 @@ version, extra = string.split(sys.version, ' ', 1)
 maj, minor = string.split(version, '.', 1)
 
 if not maj[0] >= '2' and minor[0] >= '3':
-    msg = ("supervisor requires Python 2.3 or better, you are attempting to "
-           "install it using version %s.  Please install with a "
-           "supported version" % version)
+    msg = ("supervisor_cache requires Python 2.3 or better, you are "
+           "attempting to install it using version %s.  Please install "
+           "with a supported version" % version)
 
 from setuptools import setup, find_packages
 here = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
 DESC = """\
-supervisor_cache is an RPC extension for the supervisor2 package that
+supervisor_cache is an RPC extension for the supervisor package that
 provides the ability to cache limited amounts of data in the
 supervisor instance as key/value pairs."""
 
@@ -42,7 +40,7 @@ dist = setup(
     version = supervisor_cache_version,
     license = 'License :: OSI Approved :: BSD License',
     url = 'http://maintainable.com/software/supervisor_cache',
-    description = "supervisor_cache RPC extension for supervisor2",
+    description = "supervisor_cache RPC extension for supervisor",
     long_description= DESC,
     classifiers = CLASSIFIERS,
     author = "Mike Naberezny",
@@ -51,7 +49,13 @@ dist = setup(
     maintainer_email = "mike@maintainable.com",
     package_dir = {'':'src'},
     packages = find_packages(os.path.join(here, 'src')),
-    install_requires = ['supervisor>=3.0a3'],
+    # put data files in egg 'doc' dir
+    data_files=[ ('doc', [
+        'README.markdown',
+        'LICENSE.txt',
+        ]
+    )],    
+    install_requires = ['supervisor >= 3.0a6'],
     include_package_data = True,
     zip_safe = False,
     namespace_packages = ['supervisor_cache'],
