@@ -27,7 +27,8 @@ class TestRPCInterface(unittest.TestCase):
         supervisord = DummySupervisor()
         interface = rpcinterface.make_cache_rpcinterface(supervisord)
         
-        self.assertType(rpcinterface.CacheNamespaceRPCInterface, interface)
+        self.assertTrue(isinstance(interface, 
+                                rpcinterface.CacheNamespaceRPCInterface))
         self.assertEqual(supervisord, interface.supervisord)
 
     # Updater
@@ -174,7 +175,7 @@ class TestRPCInterface(unittest.TestCase):
         interface.cache = {'delete-me': 'foo', 'keep-me': 'bar'}
 
         self.assertTrue(interface.delete('delete-me'))
-        self.assertNone(interface.cache.get('delete-me'))
+        self.assertEqual(None, interface.cache.get('delete-me'))
         self.assertEqual({'keep-me': 'bar'}, interface.cache)
     
     # API Method cache.clear()
@@ -206,18 +207,6 @@ class TestRPCInterface(unittest.TestCase):
             self.assertEqual(inst.code, code)
         else:
             self.fail('RPCError was never raised')
-
-    def assertTrue(self, obj):
-        self.assert_(obj is True)
-
-    def assertFalse(self, obj):
-        self.assert_(obj is False)
-    
-    def assertNone(self, obj):
-        self.assert_(obj is None)
-
-    def assertType(self, typeof, obj):
-        self.assertEqual(True, isinstance(obj, typeof), 'type mismatch')
 
 
 def test_suite():
