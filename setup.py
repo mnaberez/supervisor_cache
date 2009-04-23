@@ -58,8 +58,9 @@ dist = setup(
     packages = find_packages(os.path.join(here, 'src')),
     # put data files in egg 'doc' dir
     data_files=[ ('doc', [
-        'README.markdown',
+        'CHANGES.txt',
         'LICENSE.txt',
+        'README.markdown',
         ]
     )],    
     install_requires = ['supervisor >= 3.0a6'],

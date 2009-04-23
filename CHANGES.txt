@@ -1,0 +1,15 @@
+0.2 (Next Release)
+
+ - Supervisor 3.0a6 or later is now required.
+
+ - Added a plugin for supervisorctl that provides commands for
+   exercising all of the cache functionality.
+ 
+ - Added a new RPC method cache.getCount() that returns a count of
+   all items in the cache.
+
+ - Improved Python 2.3 compatibility.
+
+0.1 (2007-11-05)
+
+ - First release.
