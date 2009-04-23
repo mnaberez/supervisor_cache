@@ -1,14 +1,12 @@
-supervisor_cache
-================
+# supervisor_cache
 
-This package is an RPC extension for [Supervisor](http://supervisord.org) 
+This package is an extension for [Supervisor](http://supervisord.org) 
 that provides the ability to cache arbitrary data directly inside a 
 Supervisor instance as key/value pairs.  
 
 It also serves as a reference for how to write Supervisor extensions.
 
-Installation
-------------
+## Installation
 
 [Download](http://github.com/mnaberez/supervisor_cache/downloads) and 
 extract, then install to Python's `site-packages`:
@@ -16,16 +14,18 @@ extract, then install to Python's `site-packages`:
     python setup.py install
     
 After installing the package, you must modify your `supervisord.conf` file 
-to register the cache interface: 
+to register the RPC interface and `supervisorctl` plugin: 
 
     [rpcinterface:cache]
     supervisor.rpcinterface_factory = supervisor_cache.rpcinterface:make_cache_rpcinterface
 
-After modifying the `supervisord.conf` file, your Supervisor instance must be
-restarted for the cache interface to be loaded.
+    [ctlplugin:cache]
+    supervisor.ctl_factory = supervisor_cache.controllerplugin:make_cache_controllerplugin
 
-Usage
------
+After modifying the `supervisord.conf` file, both your `supervisord` instance and 
+`supervisorctl` must be restarted for these changes to take effect.
+
+## Usage
 
 The cache functions allow key/value pairs to be stored and fetched. The
 following Python interpreter session demonstrates the usage.
@@ -63,8 +63,7 @@ string but is permitted to be zero-length.
 Please consult the inline source documentation for the specifics of each
 command available.
 
-Warnings
---------
+## Warnings
 
 Data is not discarded from the cache until it is explicitly deleted with the
 `cache.delete()` method.  Data does not persist after Supervisor is shut down.
@@ -73,7 +72,6 @@ Your Supervisor instance should never be exposed to the outside world.  It is
 quite easy to perform a denial of service attack by filling `supervisor_cache`
 with large amounts of data.
 
-Author
-------
+## Author
 
 [Mike Naberezny](http://github.com/mnaberez)
