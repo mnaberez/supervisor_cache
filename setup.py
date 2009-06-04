@@ -12,18 +12,16 @@ use_setuptools()
 
 import os
 import sys
-import string
 
-version, extra = string.split(sys.version, ' ', 1)
-maj, minor = string.split(version, '.', 1)
-
-if not maj[0] >= '2' and minor[0] >= '3':
+if sys.version_info[:2] < (2, 3):   
     msg = ("supervisor_cache requires Python 2.3 or better, you are "
            "attempting to install it using version %s.  Please install "
-           "with a supported version" % version)
+           "with a supported version" % sys.version)
+    sys.stderr.write(msg)
+    sys.exit(1)
 
 from setuptools import setup, find_packages
-here = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
+here = os.path.abspath(os.path.dirname(__file__))
 
 DESC = """\
 supervisor_cache is an RPC extension for the supervisor package that
@@ -41,11 +39,12 @@ CLASSIFIERS = [
     'Topic :: System :: Systems Administration',
     ]
 
-dist = setup(
+setup(
     name = 'supervisor_cache',
     version = __version__,
     license = 'License :: OSI Approved :: BSD License',
-    url = 'http://maintainable.com/software/supervisor_cache',
+    url = 'http://github.com/mnaberez/supervisor_cache',
+    download_url = 'http://github.com/mnaberez/supervisor_cache/downloads',
     description = "supervisor_cache RPC extension for supervisor",
     long_description= DESC,
     classifiers = CLASSIFIERS,
@@ -67,4 +66,4 @@ dist = setup(
     zip_safe = False,
     namespace_packages = ['supervisor_cache'],
     test_suite = 'supervisor_cache.tests'
-    )
+)
