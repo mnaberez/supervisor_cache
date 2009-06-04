@@ -1,3 +1,5 @@
+__version__ = '0.2'
+
 import urllib
 import urllib2
 if not hasattr(urllib2, 'splituser'):
@@ -39,12 +41,9 @@ CLASSIFIERS = [
     'Topic :: System :: Systems Administration',
     ]
 
-version_txt = os.path.join(here, 'src/supervisor_cache/version.txt')
-supervisor_cache_version = open(version_txt).read().strip()
-
 dist = setup(
     name = 'supervisor_cache',
-    version = supervisor_cache_version,
+    version = __version__,
     license = 'License :: OSI Approved :: BSD License',
     url = 'http://maintainable.com/software/supervisor_cache',
     description = "supervisor_cache RPC extension for supervisor",
