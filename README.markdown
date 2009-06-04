@@ -8,10 +8,17 @@ It also serves as a reference for how to write Supervisor extensions.
 
 ## Installation
 
-[Download](http://github.com/mnaberez/supervisor_cache/downloads) and 
-extract, then install to Python's `site-packages`:
+Release packages are [available](http://pypi.python.org/pypi/supervisor_cache)
+on the Python Package Index (PyPI).  You can download them from there or you 
+can use `easy_install` to automatically install or upgrade:
 
-    python setup.py install
+    $ easy_install -U supervisor_cache
+
+Alternatively, you can [download](http://github.com/mnaberez/supervisor_cache/downloads) 
+a package from GitHub in `.tar.gz` or `.zip` format.  After extracting the 
+package, use the following command to install:
+
+    $ python setup.py install
     
 After installing the package, you must modify your `supervisord.conf` file 
 to register the RPC interface and `supervisorctl` plugin: 
