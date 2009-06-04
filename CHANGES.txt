@@ -1,4 +1,4 @@
-0.2 (Next Release)
+0.2 (2009-06-03)
 
  - Supervisor 3.0a6 or later is now required.
 
