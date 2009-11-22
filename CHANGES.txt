@@ -1,3 +1,7 @@
+Next Release
+
+ - We no longer bundle ez_setup to bootstrap setuptools installation.
+
 0.3 (2009-06-07)
 
  - Added ez_setup.py to bootstrap setuptools installation.

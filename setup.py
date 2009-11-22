@@ -7,9 +7,6 @@ if not hasattr(urllib2, 'splituser'):
     # in there in Python 2.3.3, so we just alias it.
     urllib2.splituser = urllib.splituser
 
-from ez_setup import use_setuptools
-use_setuptools()
-
 import os
 import sys
 
