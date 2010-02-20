@@ -1,5 +1,4 @@
 include CHANGES.txt
 include README.markdown
 include LICENSE.txt
-include ez_setup.py
 
