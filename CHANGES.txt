@@ -1,4 +1,4 @@
-Next Release
+0.5 (2010-02-20)
 
  - Improved parsing of arguments in the supervisorctl plugin.
 
