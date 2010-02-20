@@ -32,10 +32,10 @@ to register the RPC interface and `supervisorctl` plugin:
 After modifying the `supervisord.conf` file, both your `supervisord` instance and 
 `supervisorctl` must be restarted for these changes to take effect.
 
-## Usage
+## XML-RPC
 
-The cache functions allow key/value pairs to be stored and fetched. The
-following Python interpreter session demonstrates the usage.
+The cache functions allow key/value pairs to be stored and fetched over Supervisor's
+XML-RPC interface. The following Python interpreter session demonstrates the usage.
 
 First, a `ServerProxy` object must be configured.  If supervisord is listening on
 an inet socket, `ServerProxy` configuration is simple:
@@ -57,10 +57,10 @@ Once `ServerProxy` has been configured appropriately, we can now exercise
 
     >>> s.cache.getKeys()
     []
-    >>> s.cache.store('foo', 'bar')
+    >>> s.cache.store('foo', 'bar baz')
     True
     >>> s.cache.fetch('foo')
-    'bar'
+    'bar baz'
     >>> s.cache.getKeys()
     ['foo']
 
@@ -69,6 +69,28 @@ string but is permitted to be zero-length.
 
 Please consult the inline source documentation for the specifics of each
 command available.
+
+## Supervisorctl
+
+You can also interact with the cache using `supervisorctl`.  The `help` command
+with no arguments will list the available cache commands:
+    
+    supervisor> help
+    ...
+
+    cache commands (type help <topic>):
+    ===================================
+    cache_clear  cache_count  cache_delete  cache_fetch  cache_keys  cache_store
+
+Each command provides a thin wrapper around an XML-RPC method:
+    
+    supervisor> cache_keys
+    []
+    supervisor> cache_store 'foo' 'bar baz'
+    supervisor> cache_fetch 'foo'
+    'bar baz'
+    supervisor> cache_keys
+    ['foo']        
 
 ## Warnings
 
