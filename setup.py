@@ -41,7 +41,6 @@ setup(
     version = __version__,
     license = 'License :: OSI Approved :: BSD License',
     url = 'http://github.com/mnaberez/supervisor_cache',
-    download_url = 'http://github.com/mnaberez/supervisor_cache/downloads',
     description = "supervisor_cache RPC extension for supervisor",
     long_description= DESC,
     classifiers = CLASSIFIERS,
