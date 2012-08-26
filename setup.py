@@ -10,7 +10,7 @@ if not hasattr(urllib2, 'splituser'):
 import os
 import sys
 
-if sys.version_info[:2] < (2, 3):   
+if sys.version_info[:2] < (2, 3):
     msg = ("supervisor_cache requires Python 2.3 or better, you are "
            "attempting to install it using version %s.  Please install "
            "with a supported version" % sys.version)
@@ -48,15 +48,14 @@ setup(
     author_email = "mike@maintainable.com",
     maintainer = "Mike Naberezny",
     maintainer_email = "mike@maintainable.com",
-    package_dir = {'':'src'},
-    packages = find_packages(os.path.join(here, 'src')),
+    packages = find_packages(),
     # put data files in egg 'doc' dir
     data_files=[ ('doc', [
         'CHANGES.txt',
         'LICENSE.txt',
-        'README.markdown',
+        'README.md',
         ]
-    )],    
+    )],
     install_requires = ['supervisor >= 3.0a6'],
     include_package_data = True,
     zip_safe = False,

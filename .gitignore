@@ -5,5 +5,4 @@
 *.swp
 build/
 dist/
-src/supervisor_cache.egg-info/
-
+supervisor_cache.egg-info/
