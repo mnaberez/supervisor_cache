@@ -109,7 +109,7 @@ class TestRPCInterface(unittest.TestCase):
         interface = self.makeOne(supervisord)
         interface.cache = {'foo': None, 'bar': None}
 
-        self.assertEqual(interface.getKeys(), ['foo','bar'])
+        self.assertEqual(interface.getKeys(), ['bar','foo'])
         self.assertEqual(interface.update_text, 'getKeys')
 
     # API Method cache.fetch()
@@ -203,8 +203,8 @@ class TestRPCInterface(unittest.TestCase):
     def assertRPCError(self, code, callable, *args, **kw):
         try:
             callable(*args, **kw)
-        except supervisor.xmlrpc.RPCError, inst:
-            self.assertEqual(inst.code, code)
+        except supervisor.xmlrpc.RPCError as e:
+            self.assertEqual(e.code, code)
         else:
             self.fail('RPCError was never raised')
 

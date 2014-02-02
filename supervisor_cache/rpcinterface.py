@@ -39,7 +39,7 @@ class CacheNamespaceRPCInterface:
         @return  array   An array of strings representing cache keys
         """
         self._update('getKeys')
-        return self.cache.keys()
+        return sorted(self.cache.keys())
 
     def getCount(self):
         """ Return a count of all items in the cache
@@ -89,7 +89,7 @@ class CacheNamespaceRPCInterface:
         self._update('delete')
         self._validateKey(key)
 
-        if self.cache.has_key(key):
+        if key in self.cache:
             del self.cache[key]
         return True
 

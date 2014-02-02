@@ -1,21 +1,16 @@
 __version__ = '0.5'
 
-import urllib
-import urllib2
-if not hasattr(urllib2, 'splituser'):
-    # setuptools wants to import this from urllib2 but it's not
-    # in there in Python 2.3.3, so we just alias it.
-    urllib2.splituser = urllib.splituser
-
 import os
 import sys
 
-if sys.version_info[:2] < (2, 4) or sys.version_info[0] > 2:
-    msg = ("supervisor_cache requires Python 2.4 or later but does not "
-           "work on any version of Python 3.  You are using version %s.  "
-           "Please install using a supported version." % sys.version)
-    sys.stderr.write(msg)
-    sys.exit(1)
+py_version = sys.version_info[:2]
+
+if py_version < (2, 6):
+    raise RuntimeError(
+        'On Python 2, supervisor_twiddler requires Python 2.6 or later')
+elif (3, 0) < py_version < (3, 2):
+    raise RuntimeError(
+        'On Python 3, supervisor_twiddler requires Python 3.2 or later')
 
 from setuptools import setup, find_packages
 here = os.path.abspath(os.path.dirname(__file__))
@@ -32,6 +27,12 @@ CLASSIFIERS = [
     'License :: OSI Approved :: BSD License',
     'Natural Language :: English',
     'Operating System :: POSIX',
+    'Programming Language :: Python :: 2',
+    'Programming Language :: Python :: 2.6',
+    'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.2',
+    'Programming Language :: Python :: 3.3',
     'Topic :: System :: Boot',
     'Topic :: System :: Systems Administration',
     ]
@@ -45,17 +46,10 @@ setup(
     long_description= DESC,
     classifiers = CLASSIFIERS,
     author = "Mike Naberezny",
-    author_email = "mike@maintainable.com",
+    author_email = "mike@naberezny.com",
     maintainer = "Mike Naberezny",
-    maintainer_email = "mike@maintainable.com",
+    maintainer_email = "mike@naberezny.com",
     packages = find_packages(),
-    # put data files in egg 'doc' dir
-    data_files=[ ('doc', [
-        'CHANGES.txt',
-        'LICENSE.txt',
-        'README.md',
-        ]
-    )],
     install_requires = ['supervisor >= 3.0a6'],
     include_package_data = True,
     zip_safe = False,
