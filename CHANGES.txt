@@ -16,7 +16,7 @@
 
  - Added a plugin for supervisorctl that provides commands for
    exercising all of the cache functionality.
- 
+
  - Added a new RPC method cache.getCount() that returns a count of
    all items in the cache.
 

@@ -4,7 +4,7 @@ import shlex
 
 class CacheControllerPlugin(ControllerPluginBase):
     def __init__(self, controller):
-        self.ctl   = controller     
+        self.ctl   = controller
         self.cache = controller.get_server_proxy('cache')
 
     # cache_clear
@@ -49,7 +49,7 @@ class CacheControllerPlugin(ControllerPluginBase):
         splitted = shlex.split(args)
         if len(splitted) != 1:
             return self.help_cache_fetch()
-        key = splitted[0]        
+        key = splitted[0]
         value = self.cache.fetch(key)
         self._pprint(value)
 
@@ -76,16 +76,16 @@ class CacheControllerPlugin(ControllerPluginBase):
         if len(splitted) != 2:
             return self.help_cache_store()
         key, value = splitted
-        self.cache.store(key, value)        
+        self.cache.store(key, value)
 
-    def help_cache_store(self): 
+    def help_cache_store(self):
         self.ctl.output("cache_store <key> <value>\t"
                         "Store <value> in the cache at <key>.")
 
 
     def _pprint(self, what):
         pprinted = pprint.pformat(what)
-        self.ctl.output(pprinted)        
+        self.ctl.output(pprinted)
 
 
 def make_cache_controllerplugin(controller, **config):

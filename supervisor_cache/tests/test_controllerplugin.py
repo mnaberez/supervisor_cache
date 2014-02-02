@@ -6,7 +6,7 @@ import supervisor_cache
 class TestControllerPlugin(unittest.TestCase):
 
     # Factory
-    
+
     def test_make_cache_controllerplugin_factory(self):
         from supervisor_cache import controllerplugin
         controller = DummyController()
@@ -15,7 +15,7 @@ class TestControllerPlugin(unittest.TestCase):
         self.assertEqual(controller, plugin.ctl)
 
     # Constructor
-    
+
     def test_ctor_assigns_controller(self):
         controller = DummyController()
 
@@ -29,7 +29,7 @@ class TestControllerPlugin(unittest.TestCase):
         plugin = self.makeOne(controller)
 
         cache_interface = plugin.cache
-        cache_interface.cache = dict(foo='bar')        
+        cache_interface.cache = dict(foo='bar')
 
         plugin.do_cache_clear('')
         self.assertEqual({}, cache_interface.cache)
@@ -51,7 +51,7 @@ class TestControllerPlugin(unittest.TestCase):
         self.assert_(out.startswith('cache_clear'))
 
     # cache_count
-    
+
     def test_do_cache_count(self):
         controller = DummyController()
         plugin = self.makeOne(controller)
@@ -70,17 +70,17 @@ class TestControllerPlugin(unittest.TestCase):
         plugin.do_cache_count('arg')
         out = controller.sio.getvalue()
         self.assert_(out.startswith('cache_count'))
-   
+
     def test_help_cache_count(self):
         controller = DummyController()
         plugin = self.makeOne(controller)
 
         plugin.help_cache_count()
         out = controller.sio.getvalue()
-        self.assert_(out.startswith('cache_count'))           
+        self.assert_(out.startswith('cache_count'))
 
     # cache_delete
-    
+
     def test_do_cache_delete(self):
         controller = DummyController()
         plugin = self.makeOne(controller)
@@ -90,7 +90,7 @@ class TestControllerPlugin(unittest.TestCase):
 
         plugin.do_cache_delete('foo')
         self.assert_('foo' not in cache_interface.cache.keys())
-        self.assertEqual('qux', cache_interface.cache['baz'])  
+        self.assertEqual('qux', cache_interface.cache['baz'])
 
     def test_do_cache_delete_accepts_a_quoted_arg(self):
         controller = DummyController()
@@ -100,7 +100,7 @@ class TestControllerPlugin(unittest.TestCase):
         cache_interface.cache = {'f o o': 'bar', 'baz': 'qux'}
 
         plugin.do_cache_delete('"f o o"')
-        self.assert_('f o o' not in cache_interface.cache.keys())  
+        self.assert_('f o o' not in cache_interface.cache.keys())
 
     def test_do_cache_delete_accepts_only_one_arg(self):
         controller = DummyController()
@@ -116,10 +116,10 @@ class TestControllerPlugin(unittest.TestCase):
 
         plugin.help_cache_delete()
         out = controller.sio.getvalue()
-        self.assert_(out.startswith('cache_delete <key>'))           
+        self.assert_(out.startswith('cache_delete <key>'))
 
     # cache_fetch
-    
+
     def test_do_cache_fetch(self):
         controller = DummyController()
         plugin = self.makeOne(controller)
@@ -134,7 +134,7 @@ class TestControllerPlugin(unittest.TestCase):
     def test_do_cache_fetch_accepts_a_quoted_arg(self):
         controller = DummyController()
         plugin = self.makeOne(controller)
-        
+
         cache_interface = plugin.cache
         cache_interface.cache = {'f o o': 'bar'}
 
@@ -159,7 +159,7 @@ class TestControllerPlugin(unittest.TestCase):
         self.assert_(out.startswith('cache_fetch <key>'))
 
     # cache_keys
-    
+
     def test_do_cache_keys(self):
         controller = DummyController()
         plugin = self.makeOne(controller)
@@ -167,7 +167,7 @@ class TestControllerPlugin(unittest.TestCase):
         cache_interface = plugin.cache
         cache_interface.cache = dict(foo='bar', baz='qux')
         plugin.do_cache_keys('')
-        
+
         output = controller.sio.getvalue()
         self.assert_('foo' in output)
         self.assert_('baz' in output)
@@ -186,10 +186,10 @@ class TestControllerPlugin(unittest.TestCase):
 
         plugin.help_cache_keys()
         out = controller.sio.getvalue()
-        self.assert_(out.startswith('cache_keys'))           
-   
+        self.assert_(out.startswith('cache_keys'))
+
     # cache_store
-    
+
     def test_do_cache_store(self):
         controller = DummyController()
         plugin = self.makeOne(controller)
@@ -239,7 +239,7 @@ class TestControllerPlugin(unittest.TestCase):
 
         plugin.help_cache_store()
         out = controller.sio.getvalue()
-        self.assert_(out.startswith('cache_store <key> <value>'))           
+        self.assert_(out.startswith('cache_store <key> <value>'))
 
     # Test Helpers
 
@@ -254,11 +254,11 @@ class TestControllerPlugin(unittest.TestCase):
 class DummyController:
     def __init__(self):
         self.sio = StringIO.StringIO()
-    
+
     def output(self, out):
         assert(isinstance(out, str))
         self.sio.write(out)
-            
+
     def get_server_proxy(self, namespace=None):
         if namespace == 'cache':
             from supervisor.tests.base import DummySupervisor

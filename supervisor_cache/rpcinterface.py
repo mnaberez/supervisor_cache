@@ -5,14 +5,14 @@ from supervisor.xmlrpc import RPCError
 API_VERSION = '0.2'
 
 class CacheNamespaceRPCInterface:
-    """ A Supervisor RPC interface that provides the ability 
+    """ A Supervisor RPC interface that provides the ability
     to cache abritrary data in the Supervisor instance as key/value pairs.
     """
 
     def __init__(self, supervisord):
         self.supervisord = supervisord
         self.cache = {}
-        
+
     def _update(self, text):
         self.update_text = text # for unit tests, mainly
 
@@ -22,7 +22,7 @@ class CacheNamespaceRPCInterface:
             raise RPCError(Faults.SHUTDOWN_STATE)
 
         # XXX fatal state
-        
+
     # RPC API methods
 
     def getAPIVersion(self):
@@ -44,7 +44,7 @@ class CacheNamespaceRPCInterface:
     def getCount(self):
         """ Return a count of all items in the cache
 
-        @return  integer   Count of items 
+        @return  integer   Count of items
         """
         self._update('getCount')
         return len(self.cache)
