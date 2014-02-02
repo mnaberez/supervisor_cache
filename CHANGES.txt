@@ -1,5 +1,5 @@
-Next Release
-------------
+1.0.0 (2014-02-02)
+------------------
 
 - Dropped support for Python versions before 2.6.
 
