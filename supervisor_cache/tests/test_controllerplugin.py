@@ -6,8 +6,6 @@ try:
 except:
     from io import StringIO
 
-import supervisor_cache
-
 class TestControllerPlugin(unittest.TestCase):
 
     # Factory

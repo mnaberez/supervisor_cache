@@ -5,8 +5,6 @@ import supervisor
 from supervisor.xmlrpc import Faults
 from supervisor.supervisord import SupervisorStates
 
-import supervisor_cache
-
 from supervisor.tests.base import DummySupervisor
 
 class TestRPCInterface(unittest.TestCase):
