@@ -67,20 +67,21 @@ class TestRPCInterface(unittest.TestCase):
         self.assertRPCError(Faults.BAD_NAME,
                     interface.store, '', 'data')
 
-    def test_store_raises_incorrect_parameters_when_data_is_not_string(self):
-        supervisord = DummySupervisor()
-        interface = self.makeOne(supervisord)
-
-        not_a_string = 42
-        self.assertRPCError(Faults.INCORRECT_PARAMETERS,
-                    interface.store, 'key', not_a_string)
-
     def test_store(self):
         supervisord = DummySupervisor()
         interface = self.makeOne(supervisord)
 
         interface.store('the-key', 'its-value')
         self.assertEqual(interface.cache['the-key'], 'its-value')
+        self.assertEqual(interface.update_text, 'store')
+
+    def test_store_allows_nonstring_values(self):
+        supervisord = DummySupervisor()
+        interface = self.makeOne(supervisord)
+
+        not_a_string = [1, 2, 3]
+        interface.store('the-key', not_a_string)
+        self.assertEqual(interface.cache['the-key'], not_a_string)
         self.assertEqual(interface.update_text, 'store')
 
     # API Method cache.getCount()
