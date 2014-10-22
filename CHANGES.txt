@@ -1,5 +1,5 @@
-1.1.0-dev (Next Release)
-------------------------
+1.1.0 (2014-10-21)
+------------------
 
 - The restriction that cached items must be strings has been removed.
   Any type that can be marshalled by XML-RPC is now allowed.  Thanks
