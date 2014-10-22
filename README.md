@@ -58,8 +58,8 @@ Once `ServerProxy` has been configured appropriately, we can now exercise
     >>> s.cache.getKeys()
     ['foo']
 
-The key must be a string and cannot be zero-length.  The value must also be a
-string but is permitted to be zero-length.
+The key must be a string and cannot be zero-length.  The value may be any
+type that can be marshalled by XML-RPC.
 
 Please consult the inline source documentation for the specifics of each
 command available.
@@ -85,6 +85,9 @@ Each command provides a thin wrapper around an XML-RPC method:
     'bar baz'
     supervisor> cache_keys
     ['foo']
+
+In `supervisorctl`, the `cache_store` command always stores the value
+as a string.
 
 ## Warnings
 

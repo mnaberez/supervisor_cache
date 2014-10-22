@@ -59,11 +59,6 @@ class CacheNamespaceRPCInterface:
         self._update('store')
         self._validateKey(key)
 
-        # XMLRPC can handle non-string values
-        #if not isinstance(data, str):
-        #    why = 'Cache data must be a string'
-        #    raise RPCError(Faults.INCORRECT_PARAMETERS, why)
-
         self.cache[key] = data
         return True
 
