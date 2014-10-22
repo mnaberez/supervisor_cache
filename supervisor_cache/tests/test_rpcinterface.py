@@ -3,7 +3,7 @@ import unittest
 
 import supervisor
 from supervisor.xmlrpc import Faults
-from supervisor.supervisord import SupervisorStates
+from supervisor.states import SupervisorStates
 
 from supervisor.tests.base import DummySupervisor
 

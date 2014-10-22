@@ -1,4 +1,4 @@
-from supervisor.supervisord import SupervisorStates
+from supervisor.states import SupervisorStates
 from supervisor.xmlrpc import Faults
 from supervisor.xmlrpc import RPCError
 
