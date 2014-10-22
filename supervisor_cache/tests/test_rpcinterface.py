@@ -144,6 +144,14 @@ class TestRPCInterface(unittest.TestCase):
         self.assertEqual('its-value', interface.fetch('the-key'))
         self.assertEqual(interface.update_text, 'fetch')
 
+    def test_fetch_none(self):
+        supervisord = DummySupervisor()
+        interface = self.makeOne(supervisord)
+        interface.cache = {'the-key': None}
+
+        self.assertEqual(None, interface.fetch('the-key'))
+        self.assertEqual(interface.update_text, 'fetch')
+
     # API Method cache.delete()
 
     def test_delete_raises_bad_name_when_key_is_not_a_string(self):
