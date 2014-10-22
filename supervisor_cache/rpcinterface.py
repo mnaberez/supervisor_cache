@@ -73,7 +73,7 @@ class CacheNamespaceRPCInterface:
 
         if key not in self.cache:
             raise RPCError(Faults.BAD_NAME)
-        return self.cache.get(key)
+        return self.cache[key]
 
     def delete(self, key):
         """ Delete data stored in cache under 'key'
